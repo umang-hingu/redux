@@ -1,10 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TableList from "./component/TableList";
 
 function App() {
+ 
+
   return (
     <div className="App">
-      <p>Hello There</p>
+      <h1>Fetched Data rendered on Table</h1>
+      <TableList></TableList>
     </div>
   );
 }
