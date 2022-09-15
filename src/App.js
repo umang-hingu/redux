@@ -1,14 +1,20 @@
-import "./App.css";
-import TableList from "./component/TableList";
+
+import { Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import HomePage from "./pages/HomePage";
+import Layout from "./Layout/Layout";
+
 
 function App() {
- 
-
   return (
-    <div className="App">
-      <h1>Fetched Data rendered on Table</h1>
-      <TableList></TableList>
-    </div>
+    <Layout>
+      <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/registration" element={<RegistrationPage />} />
+      <Route path="/homepage" element={<HomePage />} />
+      </Routes>
+    </Layout>
   );
 }
 

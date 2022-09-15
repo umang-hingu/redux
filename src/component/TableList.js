@@ -1,7 +1,7 @@
 import TableItem from "./TableItem";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 
 
 const TableList = () => {
@@ -31,7 +31,7 @@ const TableList = () => {
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Username</th>
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>
