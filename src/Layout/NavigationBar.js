@@ -16,7 +16,12 @@ const NavigationBar = () => {
 
             {token ? (
               <Nav.Link>
-                <NavLink to="/" onClick={()=> localStorage.removeItem('token')}>Logout</NavLink>
+                <NavLink
+                  to="/"
+                  onClick={() => localStorage.removeItem("token")}
+                >
+                  Logout
+                </NavLink>
               </Nav.Link>
             ) : (
               <>
@@ -28,6 +33,9 @@ const NavigationBar = () => {
                 </Nav.Link>
               </>
             )}
+            <Nav.Link>
+              <NavLink to="/about-us">About Us</NavLink>
+            </Nav.Link>
           </Nav>
         </Nav>
       </Navbar>
