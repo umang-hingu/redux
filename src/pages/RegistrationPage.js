@@ -1,31 +1,47 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import Layout from "../Layout/Layout";
 
-
-const RegistrationPage = (props) => {
+const RegistrationPage = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
+
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setEnteredEmail(emailInputRef.current.value);
-    setEnteredPassword(passwordInputRef.current.value);
+  
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
     const addedUser = {
-      enteredEmail,
-      enteredPassword
-    }
-    props.onAddUser(addedUser);
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    console.log('add user log', addedUser);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(addedUser)
   };
-    return (
-      <form onSubmit={submitHandler}>
+  fetch('https://reqres.in/api/register', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log('Data print',data));
+
+  }
+ 
+
+  return (
+   <Layout>
+    <form onSubmit={submitHandler}>
       <label>Email</label>
       <input type="email" ref={emailInputRef}></input>
       <label>Password</label>
       <input type="password" ref={passwordInputRef}></input>
-      <button type="submit">Submit</button>
+      <button type="submit">Sign Up</button>
     </form>
-      );
+    </Layout>
+  );
 };
 
 export default RegistrationPage;
