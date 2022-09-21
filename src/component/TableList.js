@@ -1,28 +1,21 @@
 import TableItem from "./TableItem";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Table } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchTableData } from "../store/homepage-action";
 
 
 
 const TableList = () => {
-  const [loadedData, setLoadedData] = useState([]);
+  const dispatch = useDispatch();
 
-  const fetchdata = () => {
-    fetch("https://reqres.in/api/users?page=2")
-      .then((response) => {
-        return response.json();
-      })
-      .then((resData) => {
-        setLoadedData(resData.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
+  const items = useSelector((state) => state.items);
 
-  useEffect(() => {
-    fetchdata();
-  }, []);
+ 
+
+  useEffect(()=>{
+    dispatch(fetchTableData());
+  },[dispatch])
 
   return (
     <div>
@@ -35,7 +28,7 @@ const TableList = () => {
           </tr>
         </thead>
         <tbody>
-          {loadedData.map((user) => (
+          {items.map((user) => (
             <TableItem
               key={user.id}
               fname={user.first_name}
