@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const homepageSlice = createSlice({
   name: "homepage",
-  initialState: { items: [], notification: null },
+  initialState: { items: [], notification: null, registeredUserData: null, loginUserData: null},
   reducers: {
     showNotification(state, action) {
       state.notification = {
@@ -14,6 +14,20 @@ const homepageSlice = createSlice({
     addItem(state, action) {
       state.items = action.payload.items;
     },
+    addRegisterUserData(state, action){
+      state.registeredUserData = {
+        email: action.payload.email,
+        password: action.payload.password,
+        token: action.payload.token
+      }
+    },
+    addLoginUserData(state, action){
+      state.loginUserData = {
+        email: action.payload.email,
+        password: action.payload.password,
+        token: action.payload.token
+      }
+    }
   },
 });
 

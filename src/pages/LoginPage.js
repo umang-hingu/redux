@@ -1,53 +1,74 @@
-import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../Layout/Layout";
+import { useDispatch, useSelector } from "react-redux";
+import { homepageActions } from "../store/homepage-slice";
 
 const LoginPage = (props) => {
   const navigate = useNavigate();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
 
+  const dispatch = useDispatch();
+  const loginUserData = useSelector((state) => state.loginUserData);
+  const registeredUserData = useSelector((state) => state.registeredUserData);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
-    const addedUser = {
-      email: enteredEmail,
-      password: enteredPassword,
-    };
-
-    console.log("add user log", addedUser);
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(addedUser),
+      body: JSON.stringify(loginUserData),
     };
     fetch("https://reqres.in/api/login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        localStorage.setItem('token', data.token);
-      if(data.token){
-        navigate('/homepage');
-      }
+        localStorage.setItem("token", data.token);
+        dispatch(
+          homepageActions.addLoginUserData({
+            ...loginUserData,
+            token: data.token,
+          })
+        );
+        if (data.token === registeredUserData.token) {
+          navigate("/homepage");
+        } else if (registeredUserData.token === undefined ){
+          navigate("/registration")
+        }
       });
-    
-    
-      
   };
+
+  const emailChangeHandler = (event) => {
+    const enteredEmail = event.target.value;
+    console.log(enteredEmail);
+    dispatch(
+      homepageActions.addLoginUserData({
+        ...loginUserData,
+        email: enteredEmail,
+      })
+    );
+  };
+
+  const passwordChangeHandler = (event) => {
+    const enteredPassword = event.target.value;
+    console.log(enteredPassword);
+    dispatch(
+      homepageActions.addLoginUserData({
+        ...loginUserData,
+        password: enteredPassword,
+      })
+    );
+  };
+
+  console.log(loginUserData);
 
   return (
     <Layout>
-    <form onSubmit={submitHandler}>
-      <label>Email</label>
-      <input type="email" ref={emailInputRef}></input>
-      <label>Password</label>
-      <input type="password" ref={passwordInputRef}></input>
-      <button type="submit">Sign In</button>
-    </form>
+      <form onSubmit={submitHandler}>
+        <label>Email</label>
+        <input type="email" onChange={emailChangeHandler}></input>
+        <label>Password</label>
+        <input type="password" onChange={passwordChangeHandler}></input>
+        <button type="submit">Sign In</button>
+      </form>
     </Layout>
   );
 };
