@@ -1,6 +1,6 @@
-import Layout from "../Layout/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { homepageActions } from "../store/homepage-slice";
+import Layout from '../Layout/Layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { homepageActions } from '../store/homepage-slice';
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();
@@ -11,17 +11,15 @@ const RegistrationPage = () => {
     event.preventDefault();
 
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(registeredUserData),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registeredUserData)
     };
-    fetch("https://reqres.in/api/register", requestOptions)
+    fetch('https://reqres.in/api/register', requestOptions)
       .then((response) => response.json())
       .then((data) => {
         dispatch(homepageActions.addRegisterUserData({ ...registeredUserData, token: data.token }));
       });
-
-   
   };
   const emailChangeHandler = (event) => {
     const enteredEmail = event.target.value;
@@ -29,7 +27,7 @@ const RegistrationPage = () => {
     dispatch(
       homepageActions.addRegisterUserData({
         ...registeredUserData,
-        email: enteredEmail,
+        email: enteredEmail
       })
     );
   };
@@ -40,7 +38,7 @@ const RegistrationPage = () => {
     dispatch(
       homepageActions.addRegisterUserData({
         ...registeredUserData,
-        password: enteredPassword,
+        password: enteredPassword
       })
     );
   };

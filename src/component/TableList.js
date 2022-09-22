@@ -1,21 +1,17 @@
-import TableItem from "./TableItem";
-import { useEffect } from "react";
-import { Table } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchTableData } from "../store/homepage-action";
-
-
+import TableItem from './TableItem';
+import { useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchTableData } from '../store/homepage-action';
 
 const TableList = () => {
   const dispatch = useDispatch();
 
   const items = useSelector((state) => state.items);
 
- 
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchTableData());
-  },[dispatch])
+  }, [dispatch]);
 
   return (
     <div>

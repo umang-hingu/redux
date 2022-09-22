@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import Layout from "../Layout/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { homepageActions } from "../store/homepage-slice";
+import { useNavigate } from 'react-router-dom';
+import Layout from '../Layout/Layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { homepageActions } from '../store/homepage-slice';
 
 const LoginPage = (props) => {
   const navigate = useNavigate();
@@ -14,24 +14,24 @@ const LoginPage = (props) => {
     event.preventDefault();
 
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginUserData),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginUserData)
     };
-    fetch("https://reqres.in/api/login", requestOptions)
+    fetch('https://reqres.in/api/login', requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem('token', data.token);
         dispatch(
           homepageActions.addLoginUserData({
             ...loginUserData,
-            token: data.token,
+            token: data.token
           })
         );
         if (data.token === registeredUserData.token) {
-          navigate("/homepage");
-        } else if (registeredUserData.token === undefined ){
-          navigate("/registration")
+          navigate('/homepage');
+        } else if (registeredUserData.token === undefined) {
+          navigate('/registration');
         }
       });
   };
@@ -42,7 +42,7 @@ const LoginPage = (props) => {
     dispatch(
       homepageActions.addLoginUserData({
         ...loginUserData,
-        email: enteredEmail,
+        email: enteredEmail
       })
     );
   };
@@ -53,7 +53,7 @@ const LoginPage = (props) => {
     dispatch(
       homepageActions.addLoginUserData({
         ...loginUserData,
-        password: enteredPassword,
+        password: enteredPassword
       })
     );
   };
